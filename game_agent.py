@@ -7,12 +7,15 @@ You must test your agent's strength against a set of agents with known
 relative strength using tournament.py and include the results in your report.
 """
 import random
-
+from heuristics import(
+    weighted_improved_score,
+    future_moves_weight,
+    mixed_heuristic
+)
 
 class Timeout(Exception):
     """Subclass base exception for code clarity."""
     pass
-
 
 def custom_score(game, player):
     """Calculate the heuristic value of a game state from the point of view
@@ -37,8 +40,13 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     """
 
-    # TODO: finish this function!
-    return float(len(game.get_legal_moves()))
+    if game.is_loser(player):
+        return float("-inf")
+
+    if game.is_winner(player):
+        return float("inf")
+
+    return mixed_heuristic(game, player)
 
 
 class CustomPlayer:
