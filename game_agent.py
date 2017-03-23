@@ -46,7 +46,7 @@ def custom_score(game, player):
     if game.is_winner(player):
         return float("inf")
 
-    return mixed_heuristic(game, player)
+    return future_moves_weight(game, player)
 
 
 class CustomPlayer:
